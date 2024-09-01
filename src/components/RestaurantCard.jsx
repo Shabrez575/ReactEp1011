@@ -1,9 +1,12 @@
 // This is the way to import named export f
 import { CDN_URL } from "../utils/constant";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const RestaurantCard = (props) => {
   // using destructure
   const { resData } = props;
+  const { loggedInUser } = useContext(UserContext);
 
   const {
     cloudinaryImageId,
@@ -33,6 +36,9 @@ const RestaurantCard = (props) => {
         </span> */}
         <p>
           <b>{costForTwo}</b>
+        </p>
+        <p>
+        <b>User: {loggedInUser}</b>
         </p>
       </div>
     </div>

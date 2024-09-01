@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/constant";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 // Header component
 const Header = () => {
   const [btnNameReact, setbtnNameReact] = useState("Login");
 
   console.log("Header2");
+  const OnlineStatus = useOnlineStatus();
 
+  const data = useContext(UserContext);
+  console.log(data);
   // If no dependency array is passed, useEffect will run on every render
   /*
   useEffect(() => {
@@ -35,7 +40,7 @@ const Header = () => {
       <div className="nav-items">
         <ul className="d-flex p-5">
           <li className="px-2 list-unstyled">
-            Online Status:{useOnlineStatus ? "🟢" : "🔴"}
+            Online Status:{OnlineStatus ? "🟢" : "🔴"}
           </li>
           <li className="px-2 list-unstyled  link-underline-opacity-0">
             <Link className="text-decoration-none" to="/">
@@ -81,6 +86,12 @@ const Header = () => {
             >
               {btnNameReact}
             </button>
+          </li>
+          <li
+            className="px-1
+              list-unstyled"
+          >
+            {data.loggedInUser}
           </li>
         </ul>
       </div>

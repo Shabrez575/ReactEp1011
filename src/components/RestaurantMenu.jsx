@@ -3,13 +3,18 @@ import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
 import RestaurantCard from "./RestaurantCard";
+import { useState } from "react";
 const RestaurantMenu = () => {
   //const [resInfo, setResInfo] = useState(null);
-
   const { resId } = useParams();
   //console.log(resId);
 
+  // Heirarichal nested data
+  const dummyData = "dummy data";
+
   const resInfo = useRestaurantMenu(resId);
+
+  const [showIndex, setShowIndex] = useState(0);
 
   if (resInfo === null) return <Shimmer />;
   const { text } = resInfo?.cards[0]?.card?.card;
@@ -45,8 +50,14 @@ const RestaurantMenu = () => {
         ))}
       </ul> */}
       {/*Categories Accordion data  */}
-      {categories.map((category) => (
-        <RestaurantCategory data={category?.card?.card} />
+      {categories.map((category, index) => (
+        <RestaurantCategory
+          key={category?.card?.card.title}
+          data={category?.card?.card}
+          showItems={index === showIndex ? true : false}
+          setShowIndex = {() => setShowIndex(index)}
+          dummy = {dummyData}
+        />
       ))}
     </div>
   );

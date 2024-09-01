@@ -1,8 +1,9 @@
 import RestaurantCard, { withTopRated } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 //We will get Error If we do this: Warning: Invalid hook call. Hooks can only be called inside of the body of a function component.
 // const [searchText, setSearchText] = useState("");
 
@@ -44,6 +45,8 @@ const Body = () => {
     );
   }
 
+  const {loggedInUser, setUserName} = useContext(UserContext);
+
   return restaurantList.length === 0 ? (
     <Shimmer />
   ) : (
@@ -72,6 +75,17 @@ const Body = () => {
           >
             Search
           </button>
+        </div>
+        <div className="search px-1">
+          <input
+            type="text"
+            className="search-box border-solid"
+            placeholder="Set LoggedInUser..."
+            value={loggedInUser}
+            onChange={(e) =>
+              setUserName(e.target.value)
+            }
+          />
         </div>
         <div className="sort ">
           <button

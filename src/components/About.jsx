@@ -17,6 +17,7 @@ export default About;
 // Class Based Component.
 import UsersClass from "./UsersClass";
 import React from "react";
+import UserContext from "../utils/UserContext";
 
 class About extends React.Component {
   constructor(props) {
@@ -27,10 +28,10 @@ class About extends React.Component {
 
   componentDidMount() {
     // this is place where we placed API calls...
-  //  console.log("Parent Did Mount");
+    //  console.log("Parent Did Mount");
   }
   render() {
-  //  console.log("Parent Render");
+    //  console.log("Parent Render");
     return (
       <div className="about">
         <h1>Welcome in About Page!</h1>
@@ -50,11 +51,14 @@ class About extends React.Component {
           name={"Jimmy Sham(cls - 1)"}
           location={"Street 16H-A1, Melbourne(cls)"}
         />
-
         {/* <UsersClass
           name={"Jimmy Sham(cls - 2)"}
           location={"Street 16H-A1, Melbourne(cls)"}
         /> */}
+        LoggedIn User 
+        <UserContext.Consumer>
+          {(data) => console.log(data.loggedInUser)}
+        </UserContext.Consumer>{" "}
       </div>
     );
   }

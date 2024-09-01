@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -10,6 +10,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 // import Grocery from "./components/Grocery";
 import App from "./App";
 import RestaurantMenu from "./components/RestaurantMenu";
+import UserContext from "./utils/UserContext";
+import { useContext } from "react";
 
 // Chunking
 // Code Splitting
@@ -22,10 +24,22 @@ const Grocery = lazy(() => import("./components/Grocery"));
 
 // App - component composition happened here
 const AppLayout = () => {
+	const [UserName, setUserName] = useState();
+	useEffect(() => {
+		const data = {
+			name: "Md.Shabrez",
+		};
+		setUserName(data.name);
+	}, []);
+
 	return (
 		<div className="app">
-			<Header />
-			<Outlet />
+			{/* <UserContext.Provider value={{ loggedInUser: "Md.Sameer" }}> */}
+			<UserContext.Provider value={{ loggedInUser: UserName, setUserName }}>
+				<Header />
+				<Outlet />
+			</UserContext.Provider>
+			{/* </UserContext.Provider> */}
 			{/* <Body /> */}
 		</div>
 	);
